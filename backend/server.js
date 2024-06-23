@@ -2,6 +2,7 @@ const express = require('express');
 const app = express()
 const mongoose = require('mongoose');
 const userModel = require('./model/user')
+const bycrypt = require('bcrypt');
 
 
 
@@ -28,22 +29,26 @@ app.get('/user',(req,res)=>{
 
 app.post('/user/register', validater(newSchema) ,async(req,res)=>{
     const{username,email,password} = req.body;
+    const hashSalt = 8;
+    const hashedPassword = await bycrypt.hash(password,hashSalt);
     console.log(username,email,password)
     const user = new userModel({
         username,
         email,
-        password
+       password:hashedPassword
     })
     await user.save();
     res.json({msg:'user successfully registered'})
 })
 
+
+//  login user
 app.post('/user/login',validater(signSchema), async(req,res)=>{
     const{email,password} = req.body;
-    console.log(email,password);
-    const user = await userModel.findOne({email,password});
-    if(!user) return res.json({msg:'user are not sign up'});
-    res.json({msg:'user successfully sign up'});
+    const user = await userModel.findOne({email});
+    const comparePsw = await bycrypt.compare(password,user.password)
+    if(!comparePsw) return res.json({msg:'user not found'});
+    res.json({msg:'user successfully login'});
     
 })
 

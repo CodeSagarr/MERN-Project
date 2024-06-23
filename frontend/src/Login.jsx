@@ -26,7 +26,7 @@ const submitSign = async(e) => {
   return (
    <>
   <div className='container'>
-        <h1>Sign up</h1>
+        <h1>Login</h1>
 
         <div className='userForm'>
             <label htmlFor="email">Email</label>
@@ -34,7 +34,10 @@ const submitSign = async(e) => {
             <label htmlFor="password">Password</label>
             <input type="password" name="password" placeholder="Enter password" onChange={changeHandle} />
 
-            <button type="submit" onClick={submitSign} >Sign up</button>
+            <button type="submit" onClick={submitSign} >login</button>
+        </div>
+        <div className='link'>
+         <p> Create a new account ! <a href="/">Sign up</a></p> 
         </div>
        </div>
    </>

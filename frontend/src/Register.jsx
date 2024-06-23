@@ -42,7 +42,7 @@ function Register() {
         </div>
 
         <div className='link'>
-         <p>Already a member ? <a href="/login">Sign up</a></p> 
+         <p>Already a member ? <a href="/login">Sign in</a></p> 
         </div>
        </div>
    </div>
